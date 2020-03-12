@@ -75,6 +75,9 @@ dependencies {
     annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    /*Timber for Log*/
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
 }
 repositories {
     mavenCentral()

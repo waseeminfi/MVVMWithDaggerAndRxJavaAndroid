@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers
 import okhttp3.ResponseBody
 
 /**
- * Created by ${Saquib} on 03-05-2018.
+ * Created by ${Waseem} on 03-05-2018.
  */
 class LoginViewModel(val repository: Repository) : ViewModel() {
     private val disposables = CompositeDisposable()

@@ -27,7 +27,7 @@ import com.infi.mvvmwithrxjavademo.utils.ViewModelFactory
 import javax.inject.Inject
 
 /**
- * Created by ${Saquib} on 03-05-2018.
+ * Created by ${Waseem} on 03-05-2018.
  */
 class LoginActivity : BaseActivity() {
     @set:Inject

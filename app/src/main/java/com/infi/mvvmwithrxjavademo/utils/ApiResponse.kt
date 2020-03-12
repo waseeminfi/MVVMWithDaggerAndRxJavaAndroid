@@ -4,7 +4,7 @@ import com.google.gson.JsonElement
 
 
 /**
- * Created by ${Saquib} on 03-05-2018.
+ * Created by ${Waseem} on 03-05-2018.
  */
 class ApiResponse private constructor(val status: Status, val data: JsonElement?, val error: Throwable?) {
 

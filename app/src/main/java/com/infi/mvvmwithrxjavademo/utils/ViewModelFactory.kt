@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 
 /**
- * Created by ${Saquib} on 03-05-2018.
+ * Created by ${Waseem} on 03-05-2018.
  */
 class ViewModelFactory @Inject constructor(repository: Repository) : ViewModelProvider.Factory {
     val repository: Repository

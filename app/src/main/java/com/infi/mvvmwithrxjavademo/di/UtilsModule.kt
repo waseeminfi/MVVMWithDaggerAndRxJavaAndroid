@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 /**
- * Created by ${Saquib} on 03-05-2018.
+ * Created by ${Waseem} on 03-05-2018.
  */
 @Module
 class UtilsModule {
