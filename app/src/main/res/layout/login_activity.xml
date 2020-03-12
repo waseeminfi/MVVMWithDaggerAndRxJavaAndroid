@@ -12,7 +12,7 @@
         android:layout_margin="20dp"
         android:gravity="center"
         android:hint="@string/enter_mobile_number"
-        android:inputType="phone"
+        android:inputType="text"
         android:maxLength="14" />
 
     <EditText

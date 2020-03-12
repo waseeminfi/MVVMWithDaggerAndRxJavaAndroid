@@ -1,4 +1,4 @@
-package com.saquib.mvvmwithrxjavademo;
+package com.infi.mvvmwithrxjavademo;
 
 import org.junit.Test;
 
