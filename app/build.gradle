@@ -78,6 +78,9 @@ dependencies {
     /*Timber for Log*/
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
+    /*Social Login*/
+    implementation 'com.izikode.izilib:roguin:0.3'
+
 }
 repositories {
     mavenCentral()

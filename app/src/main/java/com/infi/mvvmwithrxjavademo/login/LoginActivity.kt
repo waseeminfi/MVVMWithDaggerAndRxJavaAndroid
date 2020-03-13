@@ -5,6 +5,7 @@ import android.app.ProgressDialog
 import android.os.Bundle
 
 import android.util.Log
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,44 +16,52 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
-import com.infi.mvvmwithrxjavademo.BaseActivity
-import com.infi.mvvmwithrxjavademo.LoginRequest
-import com.infi.mvvmwithrxjavademo.MyApplication
-import com.infi.mvvmwithrxjavademo.R
+import com.infi.mvvmwithrxjavademo.*
 import com.infi.mvvmwithrxjavademo.models.LoginResponse
 import com.infi.mvvmwithrxjavademo.utils.ApiResponse
 import com.infi.mvvmwithrxjavademo.utils.Constant
 import com.infi.mvvmwithrxjavademo.utils.Status
 import com.infi.mvvmwithrxjavademo.utils.ViewModelFactory
+import com.izikode.izilib.roguin.endpoint.FacebookEndpoint
+import com.izikode.izilib.roguin.endpoint.GoogleEndpoint
+import com.izikode.izilib.roguin.endpoint.TwitterEndpoint
+import com.izikode.izilib.roguin.helper.RoguinActivity
 import javax.inject.Inject
 
 /**
  * Created by ${Waseem} on 03-05-2018.
  */
-class LoginActivity : BaseActivity() {
+class LoginActivity : BaseLoginActivity()     {
     @set:Inject
     var viewModelFactory: ViewModelFactory? = null
     @BindView(R.id.phone_no)
     lateinit var phoneNo: EditText
     @BindView(R.id.password)
     lateinit  var password: EditText
+
+    @BindView(R.id.google_button)
+    lateinit var google_btn : Button
+
+    @BindView(R.id.facebook_button)
+    lateinit var facebook_btn : Button
+
     var viewModel: LoginViewModel? = null
     var progressDialog: ProgressDialog? = null
+
+
+    private val googleEndpoint by lazy { GoogleEndpoint(this) }
+    private val facebookEndpoint by lazy { FacebookEndpoint(this) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
-        initlizeViews()
-
         ButterKnife.bind(this)
         (application as MyApplication).appComponent!!.doInjection(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel::class.java)
         viewModel!!.loginResponse().observe(this, Observer { apiResponse: ApiResponse? -> consumeResponse(apiResponse) })
     }
-    private fun initlizeViews() {
-        setScreenTitle("Login")
-    }
+
 
     @OnClick(R.id.login)
     fun onLoginClicked() {
@@ -64,6 +73,56 @@ class LoginActivity : BaseActivity() {
             }
         }
     }
+
+    @OnClick(R.id.google_button)
+    fun onGoogleLogin(){
+        if (googleEndpoint.isSignedIn) {
+            googleEndpoint.requestSignOut { success ->
+                if (success) {
+                   Toast.makeText(this,"Google is Disconnected",Toast.LENGTH_LONG).show()
+                }
+            }
+        } else {
+            googleEndpoint.requestSignIn { success, token, error ->
+                if (success) {
+                    Toast.makeText(this,"Google is Connected",Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
+    @OnClick(R.id.facebook_button)
+    fun onFaceBookLogin(){
+        if (facebookEndpoint.isSignedIn) {
+            facebookEndpoint.requestSignOut { success ->
+                if (success) {
+                    Toast.makeText(this,"Google is Connected",Toast.LENGTH_LONG).show()
+                }
+            }
+        } else {
+            facebookEndpoint.requestSignIn { success, token, error ->
+                if (success) {
+
+                    Log.d("Facebook TOKEN", token.toString())
+                }
+            }
+        }
+
+    }
+
+    fun getProfileInfo(){
+        arrayOf(googleEndpoint, facebookEndpoint).forEach { endpoint ->
+            if (endpoint.isSignedIn) {
+                endpoint.requestProfile { success, profile, error ->
+                    if (success) {
+                        Log.d("RoguinEndpoint", endpoint.toString())
+                        Log.d("RoguinProfile", profile.toString())
+                    }
+                }
+            }
+        }
+    }
+
 
     /*
      * method to validate $(mobile number) and $(password)

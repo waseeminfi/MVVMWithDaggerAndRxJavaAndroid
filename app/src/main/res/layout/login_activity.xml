@@ -36,4 +36,18 @@
         android:textColor="@color/colorPrimary"
         android:textSize="18dp" />
 
+    <Button
+        android:id="@+id/facebook_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Login with Facebook" />
+
+    <Button
+        android:id="@+id/google_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Login with Google" />
+
 </LinearLayout>
